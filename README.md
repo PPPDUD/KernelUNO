@@ -10,6 +10,9 @@ A lightweight RAM-based operating system for Arduino UNO with filesystem simulat
 - **Interactive Shell** - Real-time command execution with input buffering
 - **LED Disco Mode** - Fun easter egg for testing GPIO
 
+<img width="819" height="611" alt="kerneluno" src="https://github.com/user-attachments/assets/4a78facd-dadd-4d40-ab55-a7f238d78938" />
+
+
 ## Hardware Requirements
 
 - Arduino UNO (or compatible board with ATmega328P)
