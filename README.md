@@ -59,7 +59,7 @@ arduino-cli upload --fqbn arduino:avr:uno -p /dev/ttyUSB0 .
 - `uname` - System information
 - `dmesg` - Kernel messages
 - `df` / `free` - Free memory
-- `whoami` - Current user (root)
+- `whoami` - Current user (hardcoded root)
 - `clear` - Clear screen
 - `reboot` - Restart system
 - `help` - Show all commands
