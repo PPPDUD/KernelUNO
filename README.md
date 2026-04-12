@@ -146,3 +146,6 @@ Feel free to fork, modify, and improve! Send PRs for:
 - Performance improvements
 - New commands
 - Code optimization
+
+
+// The descriptive files (i.e., README and QUICKSTART) were written by Claude AI (with minor tweaks). Why? Because if I had done it myself, it would have ended up as a few lines of incoherent gibberish that wouldn't tell you anything.//
