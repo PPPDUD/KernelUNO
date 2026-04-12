@@ -1,6 +1,6 @@
 # KernelUNO v1.0
 
-A lightweight RAM-based operating system for Arduino UNO with filesystem simulation, hardware control, and interactive shell.
+A lightweight RAM-based shell for Arduino UNO with filesystem simulation, hardware control, and interactive shell.
 
 ## Features
 
