@@ -6,11 +6,12 @@ A lightweight RAM-based shell for Arduino UNO with filesystem simulation, hardwa
 
 - **Virtual Filesystem** - Create files and directories in RAM (/dev, /home)     - **Hardware Control** - GPIO management with pin mode configuration
 - **System Monitoring** - Memory usage, uptime, kernel messages (dmesg)
-- **22 Built-in Commands** - From basic file operations to hardware control
+- **23 Built-in Commands** - From basic file operations to hardware control
 - **Interactive Shell** - Real-time command execution with input buffering
 - **LED Disco Mode** - Fun easter egg for testing GPIO
 
-<img width="819" height="611" alt="kerneluno" src="https://github.com/user-attachments/assets/4a78facd-dadd-4d40-ab55-a7f238d78938" />
+<img width="769" height="634" alt="1" src="https://github.com/user-attachments/assets/5cab216e-e0b3-4d80-a51a-1be918adbd21" />
+
 
 
 ## Hardware Requirements
@@ -63,6 +64,7 @@ arduino-cli upload --fqbn arduino:avr:uno -p /dev/ttyUSB0 .
 - `clear` - Clear screen
 - `reboot` - Restart system
 - `help` - Show all commands
+- `sh` - sh interpreter
 
 ## Usage Examples
 
@@ -128,7 +130,6 @@ gpio vixa 10
 - [ ] PWM/analog control
 - [ ] SD card support
 - [ ] File size display
-- [ ] More GPIO features
 
 ## License
 
