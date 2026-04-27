@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include <string.h>
 #include <avr/pgmspace.h>
+#include <EEPROM.h>
 
 #define MAX_FILES 10         
 #define NAME_LEN 12         
@@ -8,6 +9,8 @@
 #define PATH_LEN 16         
 #define DMESG_LINES 6
 #define DMESG_LEN 40
+#define EEPROM_MAGIC 0xAB
+#define EEPROM_ADDR  0
 
 typedef struct {
   char name[NAME_LEN];
@@ -54,9 +57,35 @@ void addDmesgRam(const char* msg) {
   dmesgIndex++;
 }
 
-void initFS() {
-  int d, i;
+void saveFS() {
+  EEPROM.write(EEPROM_ADDR, EEPROM_MAGIC);
+  int addr = EEPROM_ADDR + 1;
+  for (int i = 0; i < MAX_FILES; i++) {
+    EEPROM.put(addr, fs[i]);
+    addr += sizeof(RAMFile);
+  }
+  Serial.println(F("Synced to EEPROM."));
+  addDmesg(F("FS saved to EEPROM"));
+}
 
+void loadFS() {
+  if (EEPROM.read(EEPROM_ADDR) != EEPROM_MAGIC) return;
+  int addr = EEPROM_ADDR + 1;
+  for (int i = 0; i < MAX_FILES; i++) {
+    EEPROM.get(addr, fs[i]);
+    addr += sizeof(RAMFile);
+  }
+  addDmesg(F("FS loaded from EEPROM"));
+}
+
+void initFS() {
+  // If saved filesystem exists, load it instead of defaults
+  if (EEPROM.read(EEPROM_ADDR) == EEPROM_MAGIC) {
+    loadFS();
+    return;
+  }
+
+  int d, i;
   const char* dirs[] = {"home", "dev"};
   for (d = 0; d < 2; d++) {
     for (i = 0; i < MAX_FILES; i++) {
@@ -328,6 +357,7 @@ void executeCommand(char* line) {
     fs[foundSlot].content[0] = '\0';
     fs[foundSlot].active = 1;
     Serial.println(F("OK."));
+    saveFS();
   }
   else if (strcmp_P(cmd, PSTR("cd")) == 0) {
     if (strcmp_P(args, PSTR("..")) == 0 || strcmp_P(args, PSTR("/")) == 0) {
@@ -372,6 +402,7 @@ void executeCommand(char* line) {
           strncpy(fs[j].content, text, CONTENT_LEN - 1);
           fs[j].content[CONTENT_LEN - 1] = '\0';
           Serial.println(F("Saved."));
+          saveFS();
           if (strcmp_P(fs[j].parentDir, PSTR("/dev/")) == 0 && strncmp_P(fs[j].name, PSTR("pin"), 3) == 0) {
             int devPin = atoi_safe(fs[j].name + 3);
             if (devPin > 0) {
@@ -432,6 +463,7 @@ void executeCommand(char* line) {
         }
         fs[j].active = 0;
         Serial.println(F("Removed."));
+        saveFS();
         found = 1;
         break;
       }
@@ -489,6 +521,9 @@ void executeCommand(char* line) {
     int j;
     for (j = 0; j < 30; j++) Serial.println();
   }
+  else if (strcmp_P(cmd, PSTR("sync")) == 0) {
+    saveFS();
+  }
   else if (strcmp_P(cmd, PSTR("sh")) == 0) {
     if (args[0] == '\0') {
       Serial.println(F("Usage: sh [script]"));
@@ -509,10 +544,11 @@ void executeCommand(char* line) {
   }
   else if (strcmp_P(cmd, PSTR("help")) == 0) {
     Serial.println(F("Commands: ls, cd, pwd, mkdir, touch, cat, echo, rm, info"));
-    Serial.println(F("          pinmode, write, read, gpio, sh"));
+    Serial.println(F("          pinmode, write, read, gpio, sh, sync"));
     Serial.println(F("          uptime, uname, dmesg, df, free, whoami, clear, reboot"));
     Serial.println(F("GPIO: gpio [pin] on/off/toggle  |  gpio vixa [count]"));
     Serial.println(F("SH:   sh [file]  -- run script (use ; as line separator)"));
+    Serial.println(F("SYNC: sync       -- save filesystem to EEPROM"));
   }
   else {
     Serial.println(F("Unknown command."));
