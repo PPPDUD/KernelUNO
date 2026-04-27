@@ -1,4 +1,4 @@
-# KernelUNO v1.0 - a Ram filesystem emulator and simple shell for your arduino UNO r3 
+# KernelUNO v1.0 - a Ram filesystem emulator and simple shell for your arduino UNO R3 
 
 # Features
 
