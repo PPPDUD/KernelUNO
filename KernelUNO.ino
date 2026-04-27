@@ -8,6 +8,7 @@
 #define PATH_LEN 16
 #define DMESG_LINES 6
 #define DMESG_LEN 40
+#define NO_MEMORY_CHECK 0 // Set NO_MEMORY_CHECK to 1 for boards that don't support the included memory checking methods
 
 #ifdef __arm__
 // should use uinstd.h to define sbrk but Due causes a conflict
@@ -38,7 +39,10 @@ int dmesgIndex = 0;
 
 int freeMemory() {
   char top;
-#ifdef __arm__
+
+#if NO_MEMORY_CHECK == 1
+  return -1;
+#elif defined(__arm__)
   return &top - reinterpret_cast<char*>(sbrk(0));
 #elif defined(CORE_TEENSY) || (ARDUINO > 103 && ARDUINO != 151)
   return &top - __brkval;
