@@ -10,28 +10,28 @@
 
 
 # Commands
-- uname
-- cd
-- ls
-- pwd
-- mkdir
-- touch
-- cat
-- echo
-- rm
-- info
-- pinmode
-- write
-- read
-- gpio
-- sh
-- uptime
-- dmesg
-- df
-- free
-- whoami
-- clear
-- reboot
+- `uname`
+- `cd`
+- `ls`
+- `pwd`
+- `mkdir`
+- `touch`
+- `cat`
+- `echo`
+- `rm`
+- `info`
+- `pinmode`
+- `write`
+- `read`
+- `gpio`
+- `sh`
+- `uptime`
+- `dmesg`
+- `df`
+- `free`
+- `whoami`
+- `clear`
+- `reboot`
 
 # TODO
 
