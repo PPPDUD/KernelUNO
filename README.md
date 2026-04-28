@@ -2,7 +2,7 @@
 
 # Features
 
-- Unix-like Shell with 23 commands
+- Unix-like Shell with 24 commands
 
 - GPIO support
 
@@ -10,36 +10,38 @@
 
 
 # Commands
-- uname
-- cd
-- ls
-- pwd
-- mkdir
-- touch
-- cat
-- echo
-- rm
-- info
-- pinmode
-- write
-- read
-- gpio
-- sh
-- uptime
-- dmesg
-- df
-- free
-- whoami
-- clear
-- reboot
+- `uname`
+- `cd`
+- `ls`
+- `pwd`
+- `mkdir`
+- `touch`
+- `cat`
+- `echo`
+- `rm`
+- `info`
+- `pinmode`
+- `write`
+- `read`
+- `gpio`
+- `sh`
+- `uptime`
+- `dmesg`
+- `df`
+- `free`
+- `whoami`
+- `clear`
+- `reboot`
+- `pwm`
 
 # TODO
 
 - [ ] eeprom
 - [ ] i2c
-- [ ] pwm
+- [ ] pwm (done)
+- [ ] date cmd
 
 # LICENSE
 
-BSD3 ([Arc1011] https://github.com/Arc1011/KernelUNO)
+BSD3 ([Arc1011](https://github.com/Arc1011/KernelUNO))
 
