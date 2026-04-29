@@ -1,15 +1,7 @@
-# KernelUNO v1.0 - a Ram filesystem emulator and simple shell for your arduino UNO R3 
+# Coconix
+Coconix is a Unix-like shell for Arduino Uno boards.
 
-# Features
-
-- Unix-like Shell with 24 commands
-
-- GPIO support
-
-<img width="769" height="634" alt="1" src="https://github.com/user-attachments/assets/5d9940bc-8b05-48c4-92f6-c0d2b9dccbed" />
-
-
-# Commands
+## Commands
 - `uname`
 - `cd`
 - `ls`
@@ -34,14 +26,6 @@
 - `reboot`
 - `pwm`
 
-# TODO
-
-- [ ] eeprom
-- [ ] i2c
-- [ ] pwm (done)
-- [ ] date cmd
-
-# LICENSE
-
-BSD3 ([Arc1011](https://github.com/Arc1011/KernelUNO))
+## License
+Coconix uses the BSD 3-clause license and contains large portions of code originating from [KernelUNO](https://github.com/Arc1011/KernelUNO).
 
