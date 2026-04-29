@@ -40,7 +40,7 @@ int freeMemory() {
 
 void(* resetFunc) (void) = 0;
 
-// OPT
+// OPT from issue
 void addDmesg(const __FlashStringHelper* msg) {
   if (dmesgIndex >= DMESG_LINES) dmesgIndex = 0;
   dmesg[dmesgIndex].timestamp = millis() / 1000;
@@ -118,7 +118,7 @@ void initFS() {
     }
   }
 
-  // OPT
+  // OPT from isse
   addDmesg(F("Kernel initialized"));
   addDmesg(F("Filesystem mounted"));
   addDmesg(F("Ready for commands"));
@@ -542,9 +542,26 @@ void executeCommand(char* line) {
     }
     if (!found) Serial.println(F("Script not found."));
   }
+  else if (strcmp_P(cmd, PSTR("pwm")) == 0) {
+    sp = indexOf(args, " ");
+    if (sp == -1) { Serial.println(F("Usage: pwm [pin] [0-255]")); return; }
+    pin = atoi_safe(args);
+    char valStr[8] = "";
+    strncpy(valStr, args + sp + 1, 7);
+    valStr[7] = '\0';
+    int pwmVal = atoi_safe(valStr);
+    if (pwmVal < 0) pwmVal = 0;
+    if (pwmVal > 255) pwmVal = 255;
+    pinMode(pin, OUTPUT);
+    analogWrite(pin, pwmVal);
+    snprintf_P(buf, sizeof(buf), PSTR("PWM pin %d value %d"), pin, pwmVal);
+    addDmesgRam(buf);
+    Serial.print(F("PWM pin ")); Serial.print(pin);
+    Serial.print(F(" set to ")); Serial.println(pwmVal);
+  }
   else if (strcmp_P(cmd, PSTR("help")) == 0) {
     Serial.println(F("Commands: ls, cd, pwd, mkdir, touch, cat, echo, rm, info"));
-    Serial.println(F("          pinmode, write, read, gpio, sh, sync"));
+    Serial.println(F("          pinmode, write, read, gpio, pwm, sh"));
     Serial.println(F("          uptime, uname, dmesg, df, free, whoami, clear, reboot"));
     Serial.println(F("GPIO: gpio [pin] on/off/toggle  |  gpio vixa [count]"));
     Serial.println(F("SH:   sh [file]  -- run script (use ; as line separator)"));
