@@ -7,7 +7,7 @@
 #define NO_MEMORY_CHECK 0 // Disable checking the amount of free memory available.
 #define NO_SOFT_RESET 0 // Disable software resets.
 #define NO_TONE_FUNC 0 // Disable piezo support.
-#define HW_NAME "Arduino UNO" // The name of the board running KernelUNO.
+#define HW_NAME "Arduino UNO" // The name of the board running Coconix.
 
 #define MAX_FILES 10
 #define NAME_LEN 12
@@ -70,6 +70,10 @@ int freeMemory() {
 #endif  // __arm__
 }
 
+bool is_argstr_empty(char* args) {
+  return strcmp("", args)==0;
+}
+
 #if defined(__AVR__) && NO_SOFT_RESET == 0
 void (*resetFunc)(void) = 0;
 
@@ -80,12 +84,12 @@ void resetFunc() {
 
 #elif NO_SOFT_RESET != 0
 void resetFunc() {
-  Serial.println(F("This build of KernelUNO has been configured to disable software resets."));
+  Serial.println(F("This build of Coconix has been configured to disable software resets."));
 }
 
 #else
 void resetFunc() {
-  Serial.println(F("KernelUNO doesn't support software resets on this hardware."));
+  Serial.println(F("Coconix doesn't support software resets on this hardware."));
 }
 
 #endif
@@ -184,7 +188,7 @@ void setup() {
   Serial.begin(115200);
   initFS();
   delay(1000);
-  Serial.println(F("\n--- KernelUNO v1.0 ---"));
+  Serial.println(F("\n--- Coconix v1.0 ---"));
   Serial.println(F("Type 'help' for commands"));
   printPrompt();
 }
@@ -193,7 +197,7 @@ void generate_tone(int pin, int freq) {
 #if NO_TONE_FUNC == 0
   tone(pin, freq);
 #elif NO_TONE_FUNC == 1
-  Serial.println(F("This build of KernelUNO has been configured to disable piezo support."));
+  Serial.println(F("This build of Coconix has been configured to disable piezo support."));
 #endif
 }
 
@@ -201,7 +205,7 @@ void stop_tone(int pin) {
 #if NO_TONE_FUNC == 0
   noTone(pin);
 #elif NO_TONE_FUNC == 1
-  Serial.println(F("This build of KernelUNO has been configured to disable piezo support."));
+  Serial.println(F("This build of Coconix has been configured to disable piezo support."));
 #endif
 }
 
@@ -570,7 +574,7 @@ void executeCommand(char* line) {
   } else if (strcmp_P(cmd, PSTR("whoami")) == 0) {
     Serial.println(F("root"));
   } else if (strcmp_P(cmd, PSTR("uname")) == 0) {
-    Serial.println(F("KernelUNO v1.0"));
+    Serial.println(F("Coconix v1.0"));
     Serial.print(F("Architecture: "));
     Serial.println(HW_ARCH);
     Serial.print(F("Hardware: "));
@@ -627,7 +631,7 @@ void executeCommand(char* line) {
   else if (strcmp_P(cmd, PSTR("notone")) == 0) {
     int pin;
     sp = indexOf(args, " ");
-    if (sp != -1) {
+    if (!is_argstr_empty(args)) {
       pin = atoi_safe(args + sp);
       stop_tone(pin);
     }
@@ -643,12 +647,11 @@ void executeCommand(char* line) {
     Serial.println(F("GPIO: gpio [pin] on/off/toggle  |  gpio vixa [count]"));
     Serial.println(F("SH:   sh [file]  -- run script (use ; as line separator)"));
     Serial.println(F("SYNC: sync       -- save filesystem to EEPROM"));
+  }
 
   else if (strcmp_P(cmd, PSTR("sleep")) == 0) {
     int time;
-    sp = indexOf(args, " ");
-
-    if (sp != -1) {
+    if (!is_argstr_empty(args)) {
       time = atoi_safe(args);
       delay(time * 1000);
     }
