@@ -29,6 +29,15 @@ Coconix is a Unix-like shell for Arduino Uno boards.
 - `tone`
 - `notone`
 
+# TODO
+
+- [ ] eeprom
+- [ ] i2c
+- [ ] pwm (done)
+- [ ] date cmd
+- [ ] alias cmd
+- [ ] 'slots' cmd
+
 ## License
 Coconix uses the BSD 3-clause license and contains large portions of code originating from [KernelUNO](https://github.com/Arc1011/KernelUNO).
 
