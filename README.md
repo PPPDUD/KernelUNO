@@ -1,6 +1,17 @@
 # Coconix
 Coconix is a Unix-like shell for Arduino Uno boards.
 
+## Compatibility
+In this table, _yes_ denotes a board on which Coconix can make use of its full feature-set, _partially_ denotes a board on which Coconix can provide limited functionality, and _no_ denotes a board that is unlikely to work with Coconix.
+| Board    | Supported by Coconix? | Notes |
+| -------- | ------- | ------- |
+| Arduino UNO R3  | Yes    | N/A |
+| Arduino UNO R4 | Yes     | EEPROM is emulated in flash on R4 boards. |
+| Arduino Due    | Partially    | Coconix on the Arduino Due cannot operate piezo buzzers or save data to non-volatile storage. |
+| Adafruit Metro M0 Express    | Partially    | Coconix on the Adafruit Metro M0 Express cannot save data to non-volatile storage. |
+| ESP32 family    | No    | Coconix on ESP32-family microcontrollers is untested and most likely broken. |
+
+
 ## Commands
 - `uname`
 - `cd`
