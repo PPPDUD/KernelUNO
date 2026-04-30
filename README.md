@@ -8,6 +8,7 @@ In this table, _yes_ denotes a board on which Coconix can make use of its full f
 | Arduino UNO R3  | Yes    | N/A |
 | Arduino UNO R4 | Yes     | EEPROM is emulated in flash on R4 boards.* |
 | Arduino Due    | Partially    | Coconix on the Arduino Due cannot operate piezo buzzers or save data to non-volatile storage.* |
+| Arduino GIGA R1    | Partially    | Coconix on the Arduino GIGA R1 cannot save data to non-volatile storage or check the amount of free memory.* |
 | Adafruit Metro M0 Express    | Partially    | Coconix on the Adafruit Metro M0 Express cannot save data to non-volatile storage.* |
 | Adafruit Feather 328p    | Yes**    | In order to prevent the serial I/O from being garbled, the `BAUD_RATE` macro must be set to 9600. |
 | ESP32 family    | No    | Coconix on ESP32-family microcontrollers is untested and most likely broken. |
