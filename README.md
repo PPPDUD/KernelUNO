@@ -40,6 +40,8 @@
 - [ ] i2c
 - [ ] pwm (done)
 - [ ] date cmd
+- [ ] alias cmd
+- [ ] 'slots' cmd
 
 # LICENSE
 
