@@ -39,6 +39,7 @@ In this table, _yes_ denotes a board on which Coconix can make use of its full f
 - `sleep`
 - `tone`
 - `notone`
+- `sync`
 
 # TODO
 
