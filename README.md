@@ -51,6 +51,7 @@ Input is buffered from the serial connection and parsed line-by-line. Commands a
 - Alias cmd
 - `slots` cmd
 - neofetch cmd
+- find cmd
 
 ## License
 
